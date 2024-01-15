@@ -1,13 +1,15 @@
-import "./App.css";
-import CustomIframe from "./CustomIframe";
+import Frame from 'react-frame-component';
 import MyComponent from "./MyComponent";
 
 function App() {
-  return (
-      <CustomIframe title="A custom made iframe">
-        <MyComponent />
-      </CustomIframe>
-  );
+    return (
+        <div className='App'>
+            <p>Iframes in React</p>
+            <Frame >
+                <MyComponent />
+            </Frame>
+        </div>
+    );
 }
 
 export default App;
