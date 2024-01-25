@@ -27,6 +27,7 @@ jobs:
           
           # Make the API request
           RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/chat/completions" -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" -d "$DATA")
+          echo "$RESPONSE"
           
           # Extracting the text from the response
           RELEASE_NOTES=$(echo $RESPONSE | grep -Po '"text":.*?[^\\]"' | sed 's/"text"://;s/^"//;s/",$//')
