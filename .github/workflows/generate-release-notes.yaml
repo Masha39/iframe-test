@@ -18,13 +18,15 @@ jobs:
           API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Your OpenAI API Key should be stored as a secret
         run: |
           # Mock commit messages as an example
-          COMMIT_MESSAGES="Fix issue with user login\nImprove performance of data processing\nUpdate README with new instructions\nRefactor database schema for scalability"
+          COMMIT_MESSAGES="80306ba propeller-ui-1.47.1 (#2879)/n b07f789 Feat/pension beneficiaries page [TASK-571], [TASK-576] (#2874)/n ba9283b fix: fix broken logout flow (#2878)/n 66af75d Analytics features refinement [TASK-641] (#2812)"
+          
+          PROMPT="You are making the release notes based on the changelog from github commits. The release notes will be consumed by product manager. Write a nice short summary of all commits, omitting details about refactoring / technical debt and only focusing on something that will impact user. Respond ONLY with release notes, no other text from your side. Do not make up facts, only use the information from commits because it's super critical to provide true information"
           
           # Prepare the data for the API request
-          DATA="{\"model\": \"text-davinci-003\", \"prompt\": \"Generate release notes based on these commit titles:\n$COMMIT_MESSAGES\", \"max_tokens\": 150}"
+          DATA="{\"model\": \"gpt-3.5-turbo\", \"prompt\": \"$PROMPT:\n$COMMIT_MESSAGES\", \"max_tokens\": 150}"
           
           # Make the API request
-          RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/engines/davinci/completions" -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" -d "$DATA")
+          RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/chat/completions" -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" -d "$DATA")
           
           # Extracting the text from the response
           RELEASE_NOTES=$(echo $RESPONSE | grep -Po '"text":.*?[^\\]"' | sed 's/"text"://;s/^"//;s/",$//')
