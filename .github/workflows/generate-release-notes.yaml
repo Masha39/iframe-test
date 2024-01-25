@@ -19,7 +19,7 @@ jobs:
           API_KEY: ${{ secrets.OPEN_AI_API_KEY}}
         run: |
           # Mock commit messages as an example
-          COMMIT_MESSAGES="80306ba propeller-ui-1.47.1 (#2879)\n b07f789 Feat/pension beneficiaries page [TASK-571], [TASK-576] (#2874)\n ba9283b fix: fix broken logout flow (#2878)\n 66af75d Analytics features refinement [TASK-641] (#2812)"
+          COMMIT_MESSAGES="cd0f6fd propeller-ui-1.48.0 (#2893)\n 6cfbad9 Move cachebuster component to App.tsx. \n(#2892)79e4661 Feat - House Goal Cost Share tab - [TASK-587] (#2888)\n 1d50b27 location pathname added to useEffect. (#2890)\n 31e27f2 Bug fix - Retirement table page triggering error [TASK-630] (#2860)\n e6f6190 fixed bug with different validation rule (#2886)\n a88ead2 chore: update vite packages to latest minor or patch version (#2885)"
           
           PROMPT="You are making the release notes based on the changelog from github commits. The release notes will be consumed by product manager. Write a nice short summary of all commits, omitting details about refactoring / technical debt and only focusing on something that will impact user. Respond ONLY with release notes, no other text from your side. Do not make up facts, only use the information from commits because it's super critical to provide true information"
           
