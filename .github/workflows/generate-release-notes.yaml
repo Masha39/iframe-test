@@ -24,7 +24,7 @@ jobs:
           PROMPT="You are making the release notes based on the changelog from github commits. The release notes will be consumed by product manager. Write a nice short summary of all commits, omitting details about refactoring / technical debt and only focusing on something that will impact user. Respond ONLY with release notes, no other text from your side. Do not make up facts, only use the information from commits because it's super critical to provide true information"
           
           # Prepare the data for the API request
-          DATA="{\"model\": \"gpt-3.5-turbo\", \"prompt\": \"$PROMPT:\n$COMMIT_MESSAGES\", \"max_tokens\": 150}"
+          DATA="{\"model\": \"gpt-3.5-turbo\", \"messages\": [{\"role\": \"system\", \"content\": \"$PROMPT\"}, {\"role\": \"user\", \"content\": \"$COMMIT_MESSAGES\"}], \"max_tokens\": 150}"
           
           # Make the API request
           RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/chat/completions" -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" -d "$DATA")
