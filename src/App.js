@@ -6,7 +6,7 @@ function App() {
         <div className='App'>
             <p>Iframes in React</p>
             <Frame>
-                <p style={{color: "red"}}>Testing to see if my component renders</p>
+                <p style={{color: "red"}}>Testing to see if my component</p>
             </Frame>
         </div>
     );
