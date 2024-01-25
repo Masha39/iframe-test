@@ -15,7 +15,7 @@ jobs:
 
       - name: Generate Release Notes
         env:
-          API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Your OpenAI API Key should be stored as a secret
+          API_KEY: "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"  # Your OpenAI API Key should be stored as a secret
         run: |
           # Mock commit messages as an example
           COMMIT_MESSAGES="80306ba propeller-ui-1.47.1 (#2879)/n b07f789 Feat/pension beneficiaries page [TASK-571], [TASK-576] (#2874)/n ba9283b fix: fix broken logout flow (#2878)/n 66af75d Analytics features refinement [TASK-641] (#2812)"
