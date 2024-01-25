@@ -1,0 +1,33 @@
+name: Generate Release Notes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate Release Notes
+        env:
+          API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Your OpenAI API Key should be stored as a secret
+        run: |
+          # Mock commit messages as an example
+          COMMIT_MESSAGES="Fix issue with user login\nImprove performance of data processing\nUpdate README with new instructions\nRefactor database schema for scalability"
+          
+          # Prepare the data for the API request
+          DATA="{\"model\": \"text-davinci-003\", \"prompt\": \"Generate release notes based on these commit titles:\n$COMMIT_MESSAGES\", \"max_tokens\": 150}"
+          
+          # Make the API request
+          RESPONSE=$(curl -s -X POST "https://api.openai.com/v1/engines/davinci/completions" -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" -d "$DATA")
+          
+          # Extracting the text from the response
+          RELEASE_NOTES=$(echo $RESPONSE | grep -Po '"text":.*?[^\\]"' | sed 's/"text"://;s/^"//;s/",$//')
+          
+          # Output the release notes
+          echo "$RELEASE_NOTES"
